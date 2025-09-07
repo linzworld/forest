@@ -131,7 +131,8 @@ public class AuthorshipAspect {
                 boolean hasPermission = false;
                 if (StringUtils.isNotBlank(authHeader)) {
                     TokenUser tokenUser = UserUtils.getTokenUser(authHeader);
-                    if (!idAuthor.equals(tokenUser.getIdUser())) {
+                    hasPermission = idAuthor.equals(tokenUser.getIdUser());
+                    if (!hasPermission) {
                         if (Module.ARTICLE_TAG.equals(log.moduleName())) {
                             // 判断管理员权限
                             hasPermission = userMapper.hasAdminPermission(tokenUser.getAccount());
